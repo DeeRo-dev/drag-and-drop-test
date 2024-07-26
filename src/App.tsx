@@ -16,20 +16,16 @@ import {
 
 import { SortableItem } from "./components/SortableItem";
 
-import { createConsecutiveArrayAsync } from "./helpers/createArr";
+import { createConsecutiveArray, createConsecutiveArrayAsync } from "./helpers/createArr";
 
 export default function App() {
-  const [items, setItems] = useState<number[]>([]);
+  const [items, setItems] = useState<number[]>(createConsecutiveArray(20));
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  useEffect(() => {
-    createConsecutiveArrayAsync(20, 1500, (newArray: number[]) => setItems([...newArray]))
-  }, [])
 
   return (
     <DndContext
